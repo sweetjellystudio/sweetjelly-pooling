@@ -1,0 +1,18 @@
+{
+    "name": "SWeetJelly.Pooling.InitialiserIntegration",
+    "rootNamespace": "SWeetJelly.Pooling.InitialiserIntegration",
+    "references": [
+        "SWeetJelly.Pooling.Framework",
+        "SWeetJelly.Initialiser.Contract",
+        "SWeetJelly.Initialiser.Framework"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

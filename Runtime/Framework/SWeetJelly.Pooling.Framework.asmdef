@@ -1,0 +1,17 @@
+{
+    "name": "SWeetJelly.Pooling.Framework",
+    "rootNamespace": "SWeetJelly.Pooling.Framework",
+    "references": [
+        "SWeetJelly.Pooling.Contract",
+        "SWeetJelly.Pooling.Domain"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

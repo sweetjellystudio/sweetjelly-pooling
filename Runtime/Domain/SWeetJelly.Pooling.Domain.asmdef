@@ -1,0 +1,16 @@
+{
+    "name": "SWeetJelly.Pooling.Domain",
+    "rootNamespace": "SWeetJelly.Pooling.Contract",
+    "references": [
+        "SWeetJelly.Pooling.Contract"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}
