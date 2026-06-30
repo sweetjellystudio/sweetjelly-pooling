@@ -34,8 +34,8 @@ Runtime/
     IGameObjectPoolService.cs
     PooledGameObjectSettings.cs
 
-  InitialiserIntegration/
-    PoolInitModule.cs
+  Framework/Bootstrapper/
+    PoolingPackageBootstrapperSo.cs
 ```
 
 ## Assemblies
@@ -64,11 +64,11 @@ Contains Unity GameObject pooling implementation.
 - pool database/config assets
 - spawn settings
 
-### `SWeetJelly.Pooling.InitialiserIntegration`
+### `SWeetJelly.Pooling.Framework.Bootstrapper`
 
-Connects pooling to the Initialiser package.
+Connects pooling to the Bootstrapper package.
 
-- `PoolInitModule`
+- `PoolingPackageBootstrapperSo`
 
 ## Generic Object Pool
 
@@ -99,7 +99,7 @@ Use `IGameObjectPoolService` for Unity GameObject pooling.
 
 ```csharp
 using SWeetJelly.Pooling.Contract;
-using SWeetJelly.Pooling.Framework;
+using SWeetJelly.Pooling.Framework.Unity;
 
 GameObject instance = poolService.Spawn("projectile");
 
@@ -141,9 +141,9 @@ Each `GameObjectPoolConfig` defines:
 - whether the pool can grow
 - optional object container
 
-## Initialiser Setup
+## Bootstrapper Setup
 
-`PoolInitModule` installs pooling into the Initialiser system.
+`PoolingPackageBootstrapperSo` installs pooling into the Bootstrapper system.
 
 On install it:
 
@@ -156,16 +156,16 @@ Setup flow:
 
 1. Create a `GameObjectPoolDatabaseSo`.
 2. Add one or more pool configs.
-3. Create `PoolInitModule`.
+3. Create `PoolingPackageBootstrapperSo`.
 4. Assign the database to the module.
 5. Add the module to `ProjectInitSettingSo`.
-6. Resolve `IGameObjectPoolService` after Initialiser startup.
+6. Resolve `IGameObjectPoolService` after Bootstrapper startup.
 
 ```csharp
-using SWeetJelly.Initialiser.Framework;
-using SWeetJelly.Pooling.Framework;
+using SWeetJelly.Bootstrapper.Framework.Unity;
+using SWeetJelly.Pooling.Framework.Unity;
 
-var poolService = InitialiserBehaviour.Services.Resolve<IGameObjectPoolService>();
+var poolService = BootstrapperBehaviour.Services.Resolve<IGameObjectPoolService>();
 ```
 
 ## Returning Objects
@@ -216,4 +216,4 @@ This package currently provides:
 - GameObject weighted multi pool
 - GameObject pool database asset
 - GameObject pool service behaviour
-- Initialiser integration module
+- Bootstrapper integration module

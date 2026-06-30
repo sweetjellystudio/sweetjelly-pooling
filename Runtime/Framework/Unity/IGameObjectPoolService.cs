@@ -1,4 +1,4 @@
-namespace SWeetJelly.Pooling.Framework
+namespace SWeetJelly.Pooling.Framework.Unity
 {
     using UnityEngine;
     using SWeetJelly.Pooling.Contract;

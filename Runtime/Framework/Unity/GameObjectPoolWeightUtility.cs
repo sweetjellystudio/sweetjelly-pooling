@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SWeetJelly.Pooling.Framework
+namespace SWeetJelly.Pooling.Framework.Unity
 {
     public static class GameObjectPoolWeightUtility
     {

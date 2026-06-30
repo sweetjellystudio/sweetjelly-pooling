@@ -34,8 +34,8 @@ Runtime/
     IGameObjectPoolService.cs
     PooledGameObjectSettings.cs
 
-  InitialiserIntegration/
-    PoolInitModule.cs
+  Framework/Bootstrapper/
+    PoolingPackageBootstrapperSo.cs
 ```
 
 ## 어셈블리
@@ -64,11 +64,11 @@ Unity GameObject pooling 구현을 포함합니다.
 - pool database/config asset
 - spawn setting
 
-### `SWeetJelly.Pooling.InitialiserIntegration`
+### `SWeetJelly.Pooling.Framework.Bootstrapper`
 
-Pooling을 Initialiser package와 연결합니다.
+Pooling을 Bootstrapper package와 연결합니다.
 
-- `PoolInitModule`
+- `PoolingPackageBootstrapperSo`
 
 ## Generic Object Pool
 
@@ -99,7 +99,7 @@ Unity GameObject pooling에는 `IGameObjectPoolService`를 사용합니다.
 
 ```csharp
 using SWeetJelly.Pooling.Contract;
-using SWeetJelly.Pooling.Framework;
+using SWeetJelly.Pooling.Framework.Unity;
 
 GameObject instance = poolService.Spawn("projectile");
 
@@ -141,9 +141,9 @@ Create > SWeetJelly > Pooling > GameObject Pool Database
 - pool growth 허용 여부
 - optional object container
 
-## Initialiser 설정
+## Bootstrapper 설정
 
-`PoolInitModule`은 pooling을 Initialiser system에 설치합니다.
+`PoolingPackageBootstrapperSo`은 pooling을 Bootstrapper system에 설치합니다.
 
 설치 시 다음을 수행합니다.
 
@@ -156,16 +156,16 @@ Create > SWeetJelly > Pooling > GameObject Pool Database
 
 1. `GameObjectPoolDatabaseSo` 생성
 2. 하나 이상의 pool config 추가
-3. `PoolInitModule` 생성
+3. `PoolingPackageBootstrapperSo` 생성
 4. module에 database 할당
 5. `ProjectInitSettingSo`에 module 추가
-6. Initialiser startup 이후 `IGameObjectPoolService` resolve
+6. Bootstrapper startup 이후 `IGameObjectPoolService` resolve
 
 ```csharp
-using SWeetJelly.Initialiser.Framework;
-using SWeetJelly.Pooling.Framework;
+using SWeetJelly.Bootstrapper.Framework.Unity;
+using SWeetJelly.Pooling.Framework.Unity;
 
-var poolService = InitialiserBehaviour.Services.Resolve<IGameObjectPoolService>();
+var poolService = BootstrapperBehaviour.Services.Resolve<IGameObjectPoolService>();
 ```
 
 ## Object 반환
@@ -216,4 +216,4 @@ multi pool은 여러 prefab을 가지고 weight에 따라 하나를 선택합니
 - GameObject weighted multi pool
 - GameObject pool database asset
 - GameObject pool service behaviour
-- Initialiser integration module
+- Bootstrapper integration module

@@ -1,20 +1,17 @@
-namespace SWeetJelly.Pooling.InitialiserIntegration
+﻿namespace SWeetJelly.Pooling.Framework.Bootstrapper
 {
     using UnityEngine;
-    using SWeetJelly.Initialiser.Contract;
-    using SWeetJelly.Initialiser.Framework;
-    using SWeetJelly.Pooling.Framework;
-
-    [RegisterModule("Pooling")]
+    using SWeetJelly.Bootstrapper.Framework.Unity;
+    using SWeetJelly.Pooling.Framework.Unity;
     [CreateAssetMenu(
-        fileName = "Pool Init Module", 
-        menuName = "SWeetJelly/Initialiser/Modules/Pooling")]
-    public class PoolInitModule : InitModuleSo
+        fileName = "Pooling Package Bootstrapper", 
+        menuName = "SWeetJelly/Bootstrapper/Packages/Pooling")]
+    public class PoolingPackageBootstrapperSo : PackageBootstrapperSo
     {
         [SerializeField] private GameObjectPoolDatabaseSo database;
-        public override string ModuleName => "Pooling";
+        public override string PackageName => "Pooling";
 
-        public override void Install(InitModuleInstallContext context)
+        public override void Bootstrap(PackageBootstrapContext context)
         {
             var service = context.HolderObject.GetComponent<GameObjectPoolServiceBehaviour>();
 

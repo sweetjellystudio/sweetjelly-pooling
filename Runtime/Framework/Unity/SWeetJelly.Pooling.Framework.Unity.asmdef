@@ -1,6 +1,6 @@
 {
-    "name": "SWeetJelly.Pooling.Framework",
-    "rootNamespace": "SWeetJelly.Pooling.Framework",
+    "name": "SWeetJelly.Pooling.Framework.Unity",
+    "rootNamespace": "SWeetJelly.Pooling.Framework.Unity",
     "references": [
         "SWeetJelly.Pooling.Contract",
         "SWeetJelly.Pooling.Domain"
