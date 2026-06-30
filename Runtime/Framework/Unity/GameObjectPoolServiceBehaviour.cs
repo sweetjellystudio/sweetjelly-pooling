@@ -1,4 +1,4 @@
-﻿namespace SWeetJelly.Pooling.Framework
+namespace SWeetJelly.Pooling.Framework.Unity
 {
     using System;
     using System.Collections.Generic;

@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace SWeetJelly.Pooling.Framework
+namespace SWeetJelly.Pooling.Framework.Unity
 {
     public sealed class GameObjectPoolBuildArgs
     {

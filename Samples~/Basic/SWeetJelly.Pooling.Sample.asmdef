@@ -1,10 +1,11 @@
 {
-    "name": "SWeetJelly.Pooling.InitialiserIntegration",
-    "rootNamespace": "SWeetJelly.Pooling.InitialiserIntegration",
+    "name": "SWeetJelly.Pooling.Sample",
+    "rootNamespace": "SWeetJelly.Samples.Pooling",
     "references": [
-        "SWeetJelly.Pooling.Framework",
-        "SWeetJelly.Initialiser.Contract",
-        "SWeetJelly.Initialiser.Framework"
+        "SWeetJelly.Bootstrapper.Contract",
+        "SWeetJelly.Bootstrapper.Framework.Unity",
+        "SWeetJelly.Pooling.Contract",
+        "SWeetJelly.Pooling.Framework.Unity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-namespace SWeetJelly.Pooling.Framework
+namespace SWeetJelly.Pooling.Framework.Unity
 {
     [Serializable]
     public struct GameObjectPoolPrefabEntry

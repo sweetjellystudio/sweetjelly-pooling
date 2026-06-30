@@ -1,0 +1,28 @@
+﻿{
+    "name":  "SWeetJelly.Pooling.Framework.Bootstrapper",
+    "rootNamespace":  "SWeetJelly.Pooling.Framework.Bootstrapper",
+    "references":  [
+                       "SWeetJelly.Bootstrapper.Contract",
+                       "SWeetJelly.Bootstrapper.Framework.Unity",
+                       "SWeetJelly.Pooling.Framework.Unity"
+                   ],
+    "includePlatforms":  [
+
+                         ],
+    "excludePlatforms":  [
+
+                         ],
+    "allowUnsafeCode":  false,
+    "overrideReferences":  false,
+    "precompiledReferences":  [
+
+                              ],
+    "autoReferenced":  true,
+    "defineConstraints":  [
+
+                          ],
+    "versionDefines":  [
+
+                       ],
+    "noEngineReferences":  false
+}

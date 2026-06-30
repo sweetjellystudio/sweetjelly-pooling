@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace SWeetJelly.Pooling.Framework
+namespace SWeetJelly.Pooling.Framework.Unity
 {
     public class GameObjectPoolBuilder
     {
