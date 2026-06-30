@@ -19,5 +19,6 @@
                         "description":  "Sample scene and assets for Pooling Sample.",
                         "path":  "Samples~/Basic"
                     }
-                ]
+                ],
+    "license":  "MIT"
 }
