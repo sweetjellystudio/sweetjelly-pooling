@@ -1,0 +1,25 @@
+{
+    "name": "SWeetJelly.Pooling.Tests.PlayMode",
+    "rootNamespace": "SWeetJelly.Pooling.Tests.PlayMode",
+    "references": [
+        "SWeetJelly.Pooling.Contract",
+        "SWeetJelly.Pooling.Domain",
+        "SWeetJelly.Pooling.Framework.Unity",
+        "SWeetJelly.Pooling.Framework.Bootstrapper",
+        "SWeetJelly.Bootstrapper.Contract",
+        "SWeetJelly.Bootstrapper.App",
+        "SWeetJelly.Bootstrapper.Framework.Unity"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "noEngineReferences": false
+}

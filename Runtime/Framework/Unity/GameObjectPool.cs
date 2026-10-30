@@ -54,12 +54,20 @@ namespace SWeetJelly.Pooling.Framework.Unity
             if (isInitialised)
                 return;
 
-            if (type == GameObjectPoolType.Single)
-                InitialiseSinglePool();
-            else
-                InitialiseMultiPool();
+            try
+            {
+                if (type == GameObjectPoolType.Single)
+                    InitialiseSinglePool();
+                else
+                    InitialiseMultiPool();
 
-            isInitialised = true;
+                isInitialised = true;
+            }
+            catch
+            {
+                Clear();
+                throw;
+            }
         }
 
         public GameObject GetPooledObject(bool activateObject = true)
@@ -254,7 +262,7 @@ namespace SWeetJelly.Pooling.Framework.Unity
 
                 if (instance == null)
                 {
-                    instance = CreateSingleInstance();
+                    instance = CreateInstance(singlePrefab, null);
                     pooledObjects[i] = instance;
                 }
 
@@ -287,7 +295,7 @@ namespace SWeetJelly.Pooling.Framework.Unity
 
                 if (instance == null)
                 {
-                    instance = CreateMultiInstance(chosenPoolIndex);
+                    instance = CreateInstance(multiPrefabs[chosenPoolIndex].Prefab, null);
                     objects[i] = instance;
                 }
 
@@ -327,7 +335,7 @@ namespace SWeetJelly.Pooling.Framework.Unity
             instance.SetActive(false);
 
             spawnedCount++;
-            list.Add(instance);
+            list?.Add(instance);
 
             return instance;
         }
@@ -424,7 +432,11 @@ namespace SWeetJelly.Pooling.Framework.Unity
             if (instance == null)
                 return;
 
-            UnityEngine.Object.Destroy(instance);
+            instance.SetActive(false);
+            if (Application.isPlaying)
+                UnityEngine.Object.Destroy(instance);
+            else
+                UnityEngine.Object.DestroyImmediate(instance);
         }
 
         private static void RemoveNullRefs(List<GameObject> objects)
