@@ -22,7 +22,7 @@ Runtime/
   Domain/
     ObjectPool.cs
 
-  Framework/
+  Framework/Unity/
     GameObjectPool.cs
     GameObjectPoolBuildArgs.cs
     GameObjectPoolBuilder.cs
@@ -54,7 +54,7 @@ Contains Unity-independent pooling logic.
 
 - `ObjectPool<T>`
 
-### `SWeetJelly.Pooling.Framework`
+### `SWeetJelly.Pooling.Framework.Unity`
 
 Contains Unity GameObject pooling implementation.
 
@@ -147,7 +147,7 @@ Each `GameObjectPoolConfig` defines:
 
 On install it:
 
-1. creates or finds `GameObjectPoolServiceBehaviour` on the Initialiser holder object
+1. creates or finds `GameObjectPoolServiceBehaviour` on the Bootstrapper context holder object
 2. initialises it with `GameObjectPoolDatabaseSo`
 3. builds configured pools
 4. registers `IGameObjectPoolService`
@@ -158,7 +158,7 @@ Setup flow:
 2. Add one or more pool configs.
 3. Create `PoolingPackageBootstrapperSo`.
 4. Assign the database to the module.
-5. Add the module to `ProjectInitSettingSo`.
+5. Add the module to `PackageBootstrapperProfileSo`.
 6. Resolve `IGameObjectPoolService` after Bootstrapper startup.
 
 ```csharp
@@ -217,3 +217,22 @@ This package currently provides:
 - GameObject pool database asset
 - GameObject pool service behaviour
 - Bootstrapper integration module
+
+## Version 2.0.0
+
+Requires Unity 6.3 LTS and Bootstrapper 2.0.0. Utils is no longer a dependency. Public APIs and serialized pool ids/configuration assets remain compatible. Failed initialization and typed spawn reclaim their resources, destroyed slots are counted correctly, and service destruction/bootstrap shutdown now clean owned resources. External containers and borrowed components remain caller-owned. Use Bootstrap/Shutdown through the profile; registry registration does not transfer arbitrary service ownership.
+
+GameObject availability remains activation-based, not an exclusive lease. `useActiveOnHierarchy: true` can reuse an activeSelf object under an inactive parent; `activate: false` also leaves it available. Generic pools retain explicit rent/return membership. IPoolable hooks are not called automatically; consumers reset their own views before Despawn.
+
+After the version tag is published, list both Git dependencies in the consuming project's Packages/manifest.json:
+
+```json
+{
+  "dependencies": {
+    "com.sweetjelly.pooling": "https://github.com/sweetjellystudio/sweetjelly-pooling.git#v2.0.0",
+    "com.sweetjelly.bootstrapper": "https://github.com/sweetjellystudio/sweetjelly-bootstrapper.git#v2.0.0"
+  }
+}
+```
+
+UPM supports Git URLs in project manifests, not package dependencies. See [architecture](ARCHITECTURE.md) for responsibilities and ownership, [tests](Tests/README.md) for verification, and the root LICENSE.md for licensing.

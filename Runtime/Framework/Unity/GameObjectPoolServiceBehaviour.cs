@@ -14,6 +14,7 @@ namespace SWeetJelly.Pooling.Framework.Unity
         private readonly Dictionary<GameObject, GameObjectPool> owners = new();
 
         private readonly GameObjectPoolBuilder builder = new();
+        private Transform ownedContainer;
 
         public bool IsInitialised { get; private set; }
 
@@ -22,15 +23,41 @@ namespace SWeetJelly.Pooling.Framework.Unity
             if (IsInitialised)
                 return;
 
+            var previousDatabase = database;
+            var previousContainer = defaultContainer;
+            var previousPoolIds = new HashSet<PoolId>(pools.Keys);
+            var createdContainer = false;
             database = poolDatabase;
             defaultContainer = container != null ? container : defaultContainer;
 
-            if (defaultContainer == null)
-                defaultContainer = CreateDefaultContainer();
-
-            BuildPoolsFromDatabase();
-
-            IsInitialised = true;
+            try
+            {
+                if (defaultContainer == null)
+                {
+                    defaultContainer = CreateDefaultContainer();
+                    ownedContainer = defaultContainer;
+                    createdContainer = true;
+                }
+                BuildPoolsFromDatabase();
+                IsInitialised = true;
+            }
+            catch
+            {
+                foreach (var id in new List<PoolId>(pools.Keys))
+                {
+                    if (previousPoolIds.Contains(id)) continue;
+                    pools[id].Clear();
+                    pools.Remove(id);
+                }
+                if (createdContainer)
+                {
+                    DestroyOwnedObject(ownedContainer.gameObject);
+                    ownedContainer = null;
+                }
+                database = previousDatabase;
+                defaultContainer = previousContainer;
+                throw;
+            }
         }
 
         public bool HasPool(PoolId poolId)
@@ -62,8 +89,8 @@ namespace SWeetJelly.Pooling.Framework.Unity
             if (pools.ContainsKey(poolId))
                 throw new InvalidOperationException($"Pool already exists: {poolId}");
 
-            pools.Add(poolId, pool);
             pool.Initialise();
+            pools.Add(poolId, pool);
         }
 
         public GameObject Spawn(PoolId poolId)
@@ -100,6 +127,7 @@ namespace SWeetJelly.Pooling.Framework.Unity
 
             if (!instance.TryGetComponent(out T component))
             {
+                Despawn(instance);
                 throw new InvalidOperationException(
                     $"Spawned object from pool '{poolId}' does not contain component '{typeof(T).Name}'.");
             }
@@ -148,6 +176,23 @@ namespace SWeetJelly.Pooling.Framework.Unity
             pools.Clear();
             owners.Clear();
             IsInitialised = false;
+            if (ownedContainer != null)
+            {
+                if (defaultContainer == ownedContainer) defaultContainer = null;
+                DestroyOwnedObject(ownedContainer.gameObject);
+                ownedContainer = null;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            Clear();
+        }
+
+        private static void DestroyOwnedObject(GameObject value)
+        {
+            if (Application.isPlaying) Destroy(value);
+            else DestroyImmediate(value);
         }
 
         private void BuildPoolsFromDatabase()

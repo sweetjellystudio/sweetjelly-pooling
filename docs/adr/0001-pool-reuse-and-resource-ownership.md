@@ -1,0 +1,7 @@
+#   Preserve separate reuse models and explicit resource ownership
+
+Accepted on 2026-10-30 for the 2.0.0 migration. Keep the pure generic pool's explicit membership separate from the Unity pool's activation-based availability. Unifying them would change observable behavior for inactive parents, non-activated spawns and existing GameObject consumers. Their different rules justify different implementations without adding an App layer for symmetry. IPoolable remains an opt-in consumer contract rather than newly enabled automatic hooks.
+
+Services own clones they create, even after reparenting, while callers own external containers and borrowed service components. Bootstrap shutdown releases its own registration and components it created. This avoids leaking reparented clones or destroying resources owned by another caller. A borrowed component can be configured by initialization, but its lifetime stays with the caller, including a later registration failure. Concurrent contexts using one module asset remain unsupported.
+
+The alternative of treating every component/container touched by bootstrap as owned would simplify cleanup but could destroy caller resources. The alternative of leaving all cleanup to hierarchy destruction fails when clones have external parents. The selected ownership rule requires explicit OnDestroy cleanup and identity checks. It preserves public APIs/serialized assets while fixing reproduced resource/accounting failures. Generic callback exceptions retain their existing propagation policy.
